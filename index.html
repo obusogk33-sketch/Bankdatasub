@@ -3,784 +3,1020 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>BankDataSub – Buy Data</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<title>BankDataSub – Cheap Data Plans</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  background:#0b0f1c; color:#e8eef8;
-  font-family:'DM Sans',sans-serif;
-  max-width:430px; margin:0 auto; min-height:100vh;
-}
+  :root {
+    --navy: #0a0e1a;
+    --navy2: #0d1526;
+    --navy3: #111d35;
+    --steel: #1e3a5f;
+    --blue: #2563a8;
+    --accent: #4a9eff;
+    --glow: #5fb3ff;
+    --gold: #c9a84c;
+    --gold2: #f0c96b;
+    --white: #e8edf5;
+    --muted: #7a8fac;
+    --mtn: #f5c518;
+    --glo: #4caf50;
+    --airtel: #e53935;
+    --mobile9: #7b1fa2;
+    --card-bg: rgba(13,21,38,0.85);
+    --border: rgba(74,158,255,0.18);
+  }
 
-/* TOP BAR */
-.topbar {
-  position:sticky; top:0; z-index:99;
-  background:#0b0f1c; border-bottom:1px solid rgba(255,255,255,0.07);
-  display:flex; align-items:center; justify-content:space-between;
-  padding:14px 16px;
-}
-.topbar-left { display:flex; align-items:center; gap:10px; }
-.back-btn {
-  width:34px; height:34px; border-radius:9px;
-  background:#131d2e; border:1px solid rgba(255,255,255,0.07);
-  display:flex; align-items:center; justify-content:center;
-  color:#7a8fac; font-size:1.1rem; cursor:pointer;
-}
-.topbar h1 { font-family:'Syne',sans-serif; font-size:1rem; font-weight:700; }
-.brand-tag { font-family:'Syne',sans-serif; font-size:0.72rem; font-weight:700; color:#3b82f6; }
+  * { margin:0; padding:0; box-sizing:border-box; }
 
-/* SECTION */
-.section { padding:16px 16px 0; }
-.section-label {
-  font-size:0.68rem; color:#7a8fac;
-  letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px;
-}
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-/* PHONE */
-.phone-box {
-  background:#131d2e; border:1.5px solid rgba(255,255,255,0.08);
-  border-radius:12px; display:flex; align-items:center; overflow:hidden;
-  transition:border-color 0.2s;
-}
-.phone-box:focus-within { border-color:#3b82f6; }
-.phone-prefix {
-  padding:0 12px; height:50px; border-right:1px solid rgba(255,255,255,0.07);
-  display:flex; align-items:center; gap:6px; flex-shrink:0;
-  font-family:'Syne',sans-serif; font-size:0.82rem; font-weight:700; color:#7a8fac;
-}
-.phone-box input {
-  flex:1; background:transparent; border:none; outline:none;
-  color:#e8eef8; font-size:0.95rem; font-family:'DM Sans',sans-serif;
-  padding:0 14px; height:50px;
-}
-.phone-box input::placeholder { color:#4a5a78; }
+  /* BG mesh */
+  body::before {
+    content:'';
+    position:fixed; inset:0; z-index:0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(37,99,168,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 90% 80%, rgba(74,158,255,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 70%);
+    pointer-events:none;
+  }
 
-/* NETWORK BUTTONS */
-.net-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
-.net-btn {
-  background:#131d2e; border:2px solid rgba(255,255,255,0.08);
-  border-radius:12px; padding:10px 4px 8px;
-  display:flex; flex-direction:column; align-items:center; gap:5px;
-  cursor:pointer; transition:all 0.15s; user-select:none;
-}
-.net-ico {
-  width:36px; height:36px; border-radius:9px;
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Syne',sans-serif; font-size:0.68rem; font-weight:800;
-}
-.net-name { font-size:0.62rem; color:#7a8fac; font-weight:500; }
+  /* HEADER */
+  header {
+    position:relative; z-index:10;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px 14px;
+    border-bottom:1px solid var(--border);
+    background: rgba(10,14,26,0.92);
+    backdrop-filter: blur(12px);
+  }
 
-/* Network colors */
-.net-btn[data-net="MTN"] .net-ico { background:rgba(245,197,24,0.12); color:#f5c518; border:1px solid rgba(245,197,24,0.25); }
-.net-btn[data-net="GLO"] .net-ico { background:rgba(34,197,94,0.12); color:#22c55e; border:1px solid rgba(34,197,94,0.25); }
-.net-btn[data-net="Airtel"] .net-ico { background:rgba(239,68,68,0.12); color:#ef4444; border:1px solid rgba(239,68,68,0.25); }
-.net-btn[data-net="9mobile"] .net-ico { background:rgba(168,85,247,0.12); color:#a855f7; border:1px solid rgba(168,85,247,0.25); }
+  .logo-wrap {
+    display:flex; align-items:center; gap:14px;
+  }
 
-.net-btn.active[data-net="MTN"] { border-color:#f5c518; background:rgba(245,197,24,0.08); }
-.net-btn.active[data-net="GLO"] { border-color:#22c55e; background:rgba(34,197,94,0.08); }
-.net-btn.active[data-net="Airtel"] { border-color:#ef4444; background:rgba(239,68,68,0.08); }
-.net-btn.active[data-net="9mobile"] { border-color:#a855f7; background:rgba(168,85,247,0.08); }
-.net-btn.active .net-name { color:#e8eef8; font-weight:600; }
+  /* SVG LOGO */
+  .logo-svg-container {
+    width:54px; height:54px;
+    flex-shrink:0;
+  }
 
-/* PLAN TYPE TABS */
-.tabs-wrap {
-  margin-top:16px; border-bottom:1px solid rgba(255,255,255,0.07);
-  display:flex; overflow-x:auto; padding:0 16px;
-}
-.tabs-wrap::-webkit-scrollbar { display:none; }
-.tab {
-  flex-shrink:0; padding:11px 14px; margin-bottom:-1px;
-  font-family:'Syne',sans-serif; font-size:0.76rem; font-weight:600;
-  color:#7a8fac; cursor:pointer; border-bottom:2.5px solid transparent;
-  transition:all 0.15s; white-space:nowrap;
-}
-.tab.active { color:#e8eef8; border-bottom-color:#3b82f6; }
+  .brand-text {
+    font-family:'Syne',sans-serif;
+    font-size:1.35rem;
+    font-weight:700;
+    letter-spacing:0.02em;
+  }
+  .brand-text span.data { color: var(--accent); font-weight:800; }
 
-/* PLAN LIST */
-.plans-section { padding:12px 16px 0; }
-.plans-meta { font-size:0.68rem; color:#7a8fac; margin-bottom:10px; }
-.plan-list { display:flex; flex-direction:column; gap:1px; border-radius:14px; overflow:hidden; background:rgba(255,255,255,0.04); }
+  .header-tag {
+    font-size:0.7rem;
+    color: var(--muted);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    border:1px solid var(--border);
+    padding:4px 10px;
+    border-radius:20px;
+  }
 
-.plan-row {
-  background:#131d2e; padding:14px;
-  display:flex; align-items:center; gap:12px;
-  cursor:pointer; transition:background 0.12s; position:relative;
-}
-.plan-row:first-child { border-radius:14px 14px 0 0; }
-.plan-row:last-child { border-radius:0 0 14px 14px; }
-.plan-row:only-child { border-radius:14px; }
-.plan-row:hover { background:#192538; }
-.plan-row.active { background:rgba(59,130,246,0.1); }
+  /* HERO */
+  .hero {
+    position:relative; z-index:1;
+    text-align:center;
+    padding:52px 24px 36px;
+  }
 
-.plan-icon {
-  width:42px; height:42px; border-radius:10px;
-  background:#192538; border:1px solid rgba(255,255,255,0.07);
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.15rem; flex-shrink:0;
-}
-.plan-info { flex:1; min-width:0; }
-.plan-name-row { display:flex; align-items:center; gap:6px; margin-bottom:3px; }
-.plan-size { font-family:'Syne',sans-serif; font-size:0.97rem; font-weight:700; color:#e8eef8; }
-.plan-badge {
-  font-size:0.56rem; font-weight:700; padding:2px 6px; border-radius:20px;
-  letter-spacing:0.05em; text-transform:uppercase; flex-shrink:0;
-}
-.badge-hot { background:rgba(239,68,68,0.18); color:#f87171; border:1px solid rgba(239,68,68,0.3); }
-.badge-top { background:rgba(59,130,246,0.18); color:#60a5fa; border:1px solid rgba(59,130,246,0.3); }
-.badge-new { background:rgba(34,197,94,0.18); color:#4ade80; border:1px solid rgba(34,197,94,0.3); }
-.badge-cheap { background:rgba(245,200,66,0.18); color:#fbbf24; border:1px solid rgba(245,200,66,0.3); }
-.plan-desc { font-size:0.7rem; color:#7a8fac; }
+  .hero-badge {
+    display:inline-block;
+    background: linear-gradient(135deg, rgba(74,158,255,0.15), rgba(201,168,76,0.1));
+    border:1px solid rgba(74,158,255,0.3);
+    border-radius:30px;
+    padding:5px 16px;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color: var(--accent);
+    margin-bottom:20px;
+  }
 
-.plan-price { text-align:right; flex-shrink:0; }
-.price-new { font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:#f5c842; }
-.price-old { font-size:0.66rem; color:#4a5a78; text-decoration:line-through; margin-top:1px; }
-.price-save { font-size:0.6rem; color:#4ade80; font-weight:600; margin-top:2px; }
+  .hero h1 {
+    font-family:'Syne',sans-serif;
+    font-size:clamp(1.8rem,5vw,2.8rem);
+    font-weight:800;
+    line-height:1.15;
+    margin-bottom:14px;
+    background: linear-gradient(135deg, var(--white) 40%, var(--accent));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
 
-.plan-radio {
-  width:20px; height:20px; border-radius:50%;
-  border:2px solid #4a5a78; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  transition:all 0.15s;
-}
-.plan-row.active .plan-radio { background:#3b82f6; border-color:#3b82f6; }
-.radio-dot { width:7px; height:7px; border-radius:50%; background:#fff; display:none; }
-.plan-row.active .radio-dot { display:block; }
+  .hero p {
+    color:var(--muted);
+    font-size:0.95rem;
+    max-width:420px;
+    margin:0 auto;
+    line-height:1.7;
+  }
 
-.no-plans {
-  background:#131d2e; border-radius:14px;
-  padding:30px; text-align:center; color:#7a8fac; font-size:0.85rem;
-}
+  /* MAIN */
+  main {
+    position:relative; z-index:1;
+    max-width:800px;
+    margin:0 auto;
+    padding:0 16px 60px;
+  }
 
-/* ORDER SUMMARY */
-.summary-box {
-  margin:14px 16px 0;
-  background:#131d2e; border:1px solid rgba(59,130,246,0.25);
-  border-radius:14px; padding:14px; display:none;
-}
-.summary-box.show { display:block; }
-.summary-title {
-  font-family:'Syne',sans-serif; font-size:0.7rem; font-weight:700;
-  color:#3b82f6; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px;
-}
-.sum-row { display:flex; justify-content:space-between; padding:5px 0; }
-.sum-row + .sum-row { border-top:1px solid rgba(255,255,255,0.05); }
-.sum-key { font-size:0.75rem; color:#7a8fac; }
-.sum-val { font-family:'Syne',sans-serif; font-size:0.8rem; font-weight:600; color:#e8eef8; }
-.sum-val.gold { color:#f5c842; }
+  /* SECTION LABELS */
+  .section-label {
+    font-family:'Syne',sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section-label::after {
+    content:'';
+    flex:1;
+    height:1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
 
-/* WHATSAPP BUTTON */
-.btn-wrap {
-  position:sticky; bottom:0; padding:14px 16px 28px;
-  background:linear-gradient(0deg, #0b0f1c 65%, transparent);
-}
-.wa-btn {
-  width:100%; padding:16px; border:none; border-radius:14px;
-  background:linear-gradient(135deg, #128C7E, #25D366);
-  color:#fff; font-family:'Syne',sans-serif; font-size:0.97rem; font-weight:700;
-  letter-spacing:0.03em; cursor:pointer;
-  display:flex; align-items:center; justify-content:center; gap:9px;
-  box-shadow:0 6px 24px rgba(37,211,102,0.25); transition:transform 0.15s;
-}
-.wa-btn:active { transform:scale(0.98); }
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:24px;
+    margin-bottom:22px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
 
-/* HOW IT WORKS */
-.how-section { padding:0 16px 8px; }
-.how-title { font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:700; margin-bottom:14px; }
-.step { display:flex; gap:13px; padding-bottom:16px; position:relative; }
-.step:not(:last-child)::before {
-  content:''; position:absolute; left:13px; top:30px;
-  width:1.5px; height:calc(100% - 16px);
-  background:linear-gradient(#3b82f6, transparent); opacity:0.25;
-}
-.step-num {
-  width:28px; height:28px; border-radius:50%; flex-shrink:0;
-  background:#192538; border:1px solid rgba(59,130,246,0.3);
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Syne',sans-serif; font-size:0.72rem; font-weight:700; color:#60a5fa;
-  margin-top:1px;
-}
-.step-text strong { display:block; font-size:0.82rem; color:#e8eef8; margin-bottom:2px; }
-.step-text p { font-size:0.74rem; color:#7a8fac; line-height:1.6; }
+  /* NETWORK TABS */
+  .net-tabs {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+  }
 
-/* ABOUT */
-.about-card {
-  margin:0 16px 16px; background:#131d2e;
-  border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:16px;
-}
-.about-card h3 { font-family:'Syne',sans-serif; font-size:0.85rem; font-weight:700; margin-bottom:12px; }
-.contact-row { display:flex; align-items:center; gap:10px; padding:9px 0; }
-.contact-row + .contact-row { border-top:1px solid rgba(255,255,255,0.07); }
-.contact-ico {
-  width:32px; height:32px; border-radius:8px; background:#192538;
-  display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0;
-}
-.contact-info small { display:block; font-size:0.62rem; color:#7a8fac; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:1px; }
-.contact-info a { font-size:0.78rem; font-weight:600; color:#a8b8d0; text-decoration:none; font-family:'Syne',sans-serif; }
-.contact-info a:hover { color:#60a5fa; }
-.about-desc { font-size:0.74rem; color:#7a8fac; line-height:1.7; margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.07); }
+  .net-tab {
+    flex:1;
+    min-width:100px;
+    padding:12px 8px;
+    border-radius:12px;
+    border:1.5px solid rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.03);
+    color:var(--muted);
+    font-family:'Syne',sans-serif;
+    font-size:0.82rem;
+    font-weight:600;
+    letter-spacing:0.06em;
+    cursor:pointer;
+    transition:all 0.22s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    text-align:center;
+  }
 
-.divider { height:1px; background:rgba(255,255,255,0.07); margin:16px; }
-.sec-header { padding:0 16px 12px; font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:700; }
+  .net-tab .dot {
+    width:8px; height:8px;
+    border-radius:50%;
+    flex-shrink:0;
+  }
 
-/* TOAST */
-.toast {
-  position:fixed; bottom:100px; left:50%;
-  transform:translateX(-50%) translateY(16px);
-  background:#192538; color:#e8eef8; border:1px solid rgba(59,130,246,0.3);
-  font-family:'Syne',sans-serif; font-size:0.78rem; font-weight:600;
-  padding:10px 20px; border-radius:30px;
-  box-shadow:0 4px 20px rgba(0,0,0,0.5);
-  z-index:999; opacity:0; white-space:nowrap;
-  transition:all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
-  pointer-events:none;
-}
-.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  .net-tab[data-net="MTN"] .dot { background:var(--mtn); }
+  .net-tab[data-net="GLO"] .dot { background:var(--glo); }
+  .net-tab[data-net="Airtel"] .dot { background:var(--airtel); }
+  .net-tab[data-net="9mobile"] .dot { background:var(--mobile9); }
 
-@keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+  .net-tab.active[data-net="MTN"] {
+    border-color:var(--mtn);
+    background:rgba(245,197,24,0.1);
+    color:var(--mtn);
+    box-shadow:0 0 14px rgba(245,197,24,0.18);
+  }
+  .net-tab.active[data-net="GLO"] {
+    border-color:var(--glo);
+    background:rgba(76,175,80,0.1);
+    color:var(--glo);
+    box-shadow:0 0 14px rgba(76,175,80,0.18);
+  }
+  .net-tab.active[data-net="Airtel"] {
+    border-color:var(--airtel);
+    background:rgba(229,57,53,0.1);
+    color:var(--airtel);
+    box-shadow:0 0 14px rgba(229,57,53,0.18);
+  }
+  .net-tab.active[data-net="9mobile"] {
+    border-color:var(--mobile9);
+    background:rgba(123,31,162,0.1);
+    color:var(--mobile9);
+    box-shadow:0 0 14px rgba(123,31,162,0.18);
+  }
+
+  /* PLAN GRID */
+  .plan-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(155px,1fr));
+    gap:12px;
+    min-height:80px;
+  }
+
+  .plan-tile {
+    background: rgba(255,255,255,0.03);
+    border:1.5px solid rgba(255,255,255,0.07);
+    border-radius:14px;
+    padding:16px 14px;
+    cursor:pointer;
+    transition:all 0.2s ease;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .plan-tile::before {
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(135deg,transparent 60%,rgba(74,158,255,0.05));
+    opacity:0;
+    transition:opacity 0.2s;
+  }
+
+  .plan-tile:hover { border-color:rgba(74,158,255,0.35); transform:translateY(-2px); }
+  .plan-tile:hover::before { opacity:1; }
+
+  .plan-tile.selected {
+    border-color:var(--accent);
+    background:rgba(74,158,255,0.1);
+    box-shadow:0 0 18px rgba(74,158,255,0.2);
+  }
+
+  .plan-tile.selected::after {
+    content:'✓';
+    position:absolute;
+    top:8px; right:10px;
+    font-size:0.75rem;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  .plan-size {
+    font-family:'Syne',sans-serif;
+    font-size:1.05rem;
+    font-weight:700;
+    color:var(--white);
+    margin-bottom:4px;
+  }
+
+  .plan-validity {
+    font-size:0.7rem;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+
+  .plan-prices {
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+
+  .plan-old {
+    font-size:0.72rem;
+    color:var(--muted);
+    text-decoration:line-through;
+  }
+
+  .plan-new {
+    font-family:'Syne',sans-serif;
+    font-size:1.05rem;
+    font-weight:700;
+    color:var(--gold2);
+  }
+
+  /* PHONE INPUT */
+  .input-group {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .input-group label {
+    font-size:0.82rem;
+    color:var(--muted);
+    letter-spacing:0.04em;
+  }
+
+  .phone-input-wrap {
+    display:flex;
+    align-items:center;
+    gap:0;
+    background:rgba(255,255,255,0.04);
+    border:1.5px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    transition:border-color 0.2s;
+  }
+
+  .phone-input-wrap:focus-within {
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(74,158,255,0.12);
+  }
+
+  .phone-prefix {
+    padding:14px 14px 14px 16px;
+    font-size:0.9rem;
+    color:var(--muted);
+    border-right:1px solid var(--border);
+    white-space:nowrap;
+    font-family:'Syne',sans-serif;
+    font-weight:600;
+  }
+
+  .phone-input-wrap input {
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--white);
+    font-size:1rem;
+    font-family:'DM Sans',sans-serif;
+    padding:14px 16px;
+    letter-spacing:0.06em;
+  }
+
+  .phone-input-wrap input::placeholder { color:rgba(122,143,172,0.5); }
+
+  /* SUMMARY STRIP */
+  #summary-strip {
+    display:none;
+    background:linear-gradient(135deg, rgba(74,158,255,0.08), rgba(201,168,76,0.06));
+    border:1px solid rgba(74,158,255,0.25);
+    border-radius:12px;
+    padding:14px 18px;
+    margin-top:14px;
+    font-size:0.85rem;
+    color:var(--muted);
+    line-height:1.7;
+  }
+
+  #summary-strip strong { color:var(--white); }
+
+  /* WHATSAPP BUTTON */
+  .wa-btn {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    padding:16px 24px;
+    border:none;
+    border-radius:14px;
+    background: linear-gradient(135deg, #128C7E, #25D366);
+    color:#fff;
+    font-family:'Syne',sans-serif;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+    cursor:pointer;
+    transition:all 0.22s ease;
+    margin-top:6px;
+    box-shadow:0 6px 24px rgba(37,211,102,0.25);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .wa-btn::before {
+    content:'';
+    position:absolute;
+    top:0; left:-100%;
+    width:60%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+    transition:left 0.5s ease;
+  }
+
+  .wa-btn:hover::before { left:150%; }
+  .wa-btn:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(37,211,102,0.35); }
+  .wa-btn:active { transform:translateY(0); }
+
+  .wa-btn svg { flex-shrink:0; }
+
+  /* INSTRUCTIONS */
+  .steps {
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .step {
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+  }
+
+  .step-num {
+    width:34px; height:34px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--steel));
+    border:1px solid rgba(74,158,255,0.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Syne',sans-serif;
+    font-size:0.82rem;
+    font-weight:700;
+    color:var(--accent);
+    flex-shrink:0;
+    margin-top:1px;
+    box-shadow:0 0 12px rgba(74,158,255,0.15);
+  }
+
+  .step-content strong {
+    display:block;
+    font-family:'Syne',sans-serif;
+    font-weight:600;
+    font-size:0.9rem;
+    color:var(--white);
+    margin-bottom:3px;
+  }
+
+  .step-content p {
+    font-size:0.82rem;
+    color:var(--muted);
+    line-height:1.6;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:14px;
+  }
+
+  @media(max-width:420px){ .about-grid { grid-template-columns:1fr; } }
+
+  .about-item {
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:16px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+
+  .about-icon {
+    width:38px; height:38px;
+    background:linear-gradient(135deg,rgba(74,158,255,0.15),rgba(74,158,255,0.05));
+    border:1px solid rgba(74,158,255,0.2);
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-size:1.1rem;
+  }
+
+  .about-item-text small {
+    display:block;
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+
+  .about-item-text a,
+  .about-item-text span {
+    font-family:'Syne',sans-serif;
+    font-size:0.85rem;
+    font-weight:600;
+    color:var(--white);
+    text-decoration:none;
+    word-break:break-all;
+  }
+
+  .about-item-text a:hover { color:var(--accent); }
+
+  .about-desc {
+    font-size:0.85rem;
+    color:var(--muted);
+    line-height:1.75;
+    margin-top:16px;
+    padding-top:16px;
+    border-top:1px solid var(--border);
+  }
+
+  /* DURATION TABS */
+  .dur-tabs {
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .dur-tab {
+    padding:7px 14px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.08);
+    background:transparent;
+    color:var(--muted);
+    font-family:'Syne',sans-serif;
+    font-size:0.75rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.2s;
+  }
+  .dur-tab:hover { border-color:var(--accent); color:var(--accent); }
+  .dur-tab.active { background:rgba(74,158,255,0.12); border-color:var(--accent); color:var(--accent); }
+
+  .popular-badge {
+    display:inline-block;
+    background:var(--gold);
+    color:#0a0e1a;
+    font-size:0.6rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    padding:2px 6px;
+    border-radius:6px;
+    margin-left:4px;
+    vertical-align:middle;
+  }
+
+  /* FOOTER */
+  footer {
+    position:relative; z-index:1;
+    text-align:center;
+    padding:20px;
+    font-size:0.75rem;
+    color:rgba(122,143,172,0.5);
+    border-top:1px solid var(--border);
+    letter-spacing:0.06em;
+  }
+
+  /* TOAST */
+  .toast {
+    position:fixed;
+    bottom:24px; left:50%;
+    transform:translateX(-50%) translateY(80px);
+    background:linear-gradient(135deg,#128C7E,#25D366);
+    color:#fff;
+    font-family:'Syne',sans-serif;
+    font-size:0.85rem;
+    font-weight:600;
+    padding:12px 22px;
+    border-radius:30px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+    z-index:1000;
+    transition:transform 0.35s cubic-bezier(.175,.885,.32,1.275), opacity 0.35s;
+    opacity:0;
+  }
+
+  .toast.show {
+    transform:translateX(-50%) translateY(0);
+    opacity:1;
+  }
+
+  /* Pulse animation for WA button */
+  @keyframes pulse-glow {
+    0%,100%{ box-shadow:0 6px 24px rgba(37,211,102,0.25); }
+    50%{ box-shadow:0 6px 32px rgba(37,211,102,0.45), 0 0 0 6px rgba(37,211,102,0.08); }
+  }
+
+  .wa-btn.idle { animation:pulse-glow 2.5s ease-in-out infinite; }
+
+  @media(max-width:520px){
+    .net-tabs { gap:6px; }
+    .net-tab { min-width:70px; font-size:0.75rem; padding:10px 6px; }
+    .plan-grid { grid-template-columns:1fr 1fr; }
+    header { padding:14px 16px 12px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-left">
-    <div class="back-btn" onclick="history.back()">&#8592;</div>
-    <h1>Buy Data</h1>
-  </div>
-  <span class="brand-tag">BankDataSub</span>
-</div>
-
-<!-- PHONE NUMBER -->
-<div class="section">
-  <div class="section-label">Phone Number</div>
-  <div class="phone-box">
-    <div class="phone-prefix">🇳🇬 +234</div>
-    <input type="tel" id="phoneInput" placeholder="Enter number to receive data" maxlength="11" inputmode="numeric" oninput="updateSummary()"/>
-  </div>
-</div>
-
-<!-- NETWORK -->
-<div class="section">
-  <div class="section-label">Select Network</div>
-  <div class="net-grid">
-    <div class="net-btn active" data-net="MTN" onclick="selectNetwork(this)">
-      <div class="net-ico">MTN</div>
-      <div class="net-name">MTN</div>
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <div class="logo-svg-container">
+      <!-- BankDataSub Logo SVG recreation -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="54" height="54">
+        <defs>
+          <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#1a2a4a"/>
+            <stop offset="100%" stop-color="#0a0e1a"/>
+          </radialGradient>
+          <linearGradient id="bGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#d0d8e8"/>
+            <stop offset="50%" stop-color="#a0b4cc"/>
+            <stop offset="100%" stop-color="#6a88a8"/>
+          </linearGradient>
+          <linearGradient id="wireGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2563a8"/>
+            <stop offset="100%" stop-color="#4a9eff"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="1.2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Background circle -->
+        <circle cx="50" cy="50" r="48" fill="url(#bgGrad)" stroke="rgba(74,158,255,0.25)" stroke-width="1"/>
+        <!-- Letter B -->
+        <path d="M22 24 L22 76 L38 76 Q52 76 52 64 Q52 57 46 54 Q52 51 52 44 Q52 32 38 32 L22 24Z
+                 M29 32 L37 32 Q44 32 44 40 Q44 48 37 48 L29 48Z
+                 M29 48 L38 48 Q46 48 46 57 Q46 66 38 66 L29 66Z" 
+              fill="url(#bGrad)" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+        <!-- Circuit lines from B -->
+        <g filter="url(#glow)" stroke="url(#wireGrad)" stroke-width="1.8" fill="none" stroke-linecap="round">
+          <!-- Top wire -->
+          <path d="M52 38 L60 38 L60 28 L78 28"/>
+          <!-- Middle wire (with logo space gap) -->
+          <path d="M52 52 L60 52"/>
+          <!-- Logo space gap here — intentional break -->
+          <path d="M68 52 L78 52"/>
+          <!-- Bottom wire -->
+          <path d="M52 64 L60 64 L60 72 L78 72"/>
+        </g>
+        <!-- Logo placeholder dot (the "space" in middle wire) -->
+        <rect x="61" y="48" width="6" height="8" rx="1.5" fill="rgba(74,158,255,0.25)" stroke="rgba(74,158,255,0.5)" stroke-width="0.8"/>
+        <!-- End dots on wires -->
+        <g fill="none" stroke="#4a9eff" stroke-width="1.5" filter="url(#glow)">
+          <circle cx="78" cy="28" r="3" fill="rgba(74,158,255,0.2)"/>
+          <circle cx="78" cy="52" r="3" fill="rgba(74,158,255,0.2)"/>
+          <circle cx="78" cy="72" r="3" fill="rgba(74,158,255,0.2)"/>
+        </g>
+      </svg>
     </div>
-    <div class="net-btn" data-net="GLO" onclick="selectNetwork(this)">
-      <div class="net-ico">GLO</div>
-      <div class="net-name">Glo</div>
-    </div>
-    <div class="net-btn" data-net="Airtel" onclick="selectNetwork(this)">
-      <div class="net-ico">TEL</div>
-      <div class="net-name">Airtel</div>
-    </div>
-    <div class="net-btn" data-net="9mobile" onclick="selectNetwork(this)">
-      <div class="net-ico">9MB</div>
-      <div class="net-name">9mobile</div>
-    </div>
-  </div>
-</div>
-
-<!-- PLAN TYPE TABS -->
-<div class="tabs-wrap" id="tabsWrap">
-  <div class="tab active" data-tab="sme" onclick="selectTab(this)">SME Data</div>
-  <div class="tab" data-tab="gifting" onclick="selectTab(this)">Gifting</div>
-  <div class="tab" data-tab="corporate" onclick="selectTab(this)">Corporate</div>
-  <div class="tab" data-tab="weekly" onclick="selectTab(this)">Weekly</div>
-  <div class="tab" data-tab="monthly" onclick="selectTab(this)">Monthly</div>
-  <div class="tab" data-tab="2months" onclick="selectTab(this)">2 Months+</div>
-  <div class="tab" data-tab="yearly" onclick="selectTab(this)">Yearly</div>
-  <div class="tab" data-tab="social" onclick="selectTab(this)">Social</div>
-</div>
-
-<!-- PLANS -->
-<div class="plans-section">
-  <div class="plans-meta" id="plansMeta"></div>
-  <div class="plan-list" id="planList"></div>
-</div>
-
-<!-- ORDER SUMMARY -->
-<div class="summary-box" id="summaryBox">
-  <div class="summary-title">Order Summary</div>
-  <div class="sum-row"><span class="sum-key">Network</span><span class="sum-val" id="s-net">–</span></div>
-  <div class="sum-row"><span class="sum-key">Plan</span><span class="sum-val" id="s-plan">–</span></div>
-  <div class="sum-row"><span class="sum-key">Validity</span><span class="sum-val" id="s-val">–</span></div>
-  <div class="sum-row"><span class="sum-key">Type</span><span class="sum-val" id="s-type">–</span></div>
-  <div class="sum-row"><span class="sum-key">Amount</span><span class="sum-val gold" id="s-amt">–</span></div>
-  <div class="sum-row"><span class="sum-key">Deliver To</span><span class="sum-val" id="s-phone">–</span></div>
-</div>
-
-<!-- WHATSAPP BUTTON -->
-<div class="btn-wrap">
-  <button class="wa-btn" onclick="openWhatsApp()">
-    <svg width="20" height="20" viewBox="0 0 32 32" fill="white">
-      <path d="M16 2.7C8.6 2.7 2.7 8.6 2.7 16c0 2.3.6 4.6 1.8 6.6L2.7 29.3l6.9-1.8c1.9 1 4 1.6 6.3 1.6 7.4 0 13.3-6 13.3-13.3C29.3 8.6 23.4 2.7 16 2.7zm0 24.3c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1 1.1-4-.3-.4C5.8 19.8 5 17.9 5 16 5 9.9 9.9 5 16 5s11 4.9 11 11-4.9 11-11 11zm6.1-8.1c-.3-.2-2-.9-2.3-1.1-.3-.1-.5-.2-.7.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.7-1.7-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.1-.7.2-.2.3-.4.5-.6.2-.2.2-.3.3-.6.1-.2.1-.4 0-.6-.1-.2-.7-1.8-1-2.5-.3-.6-.5-.6-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.7 5 3.3 1.4 3.3 1 3.9.9.6-.1 2-.8 2.2-1.6.2-.8.2-1.4.2-1.6-.2-.1-.4-.2-.7-.3z"/>
-    </svg>
-    Proceed via WhatsApp
-  </button>
-</div>
-
-<!-- HOW IT WORKS -->
-<div class="divider"></div>
-<div class="sec-header">How It Works</div>
-<div class="how-section">
-  <div class="step">
-    <div class="step-num">1</div>
-    <div class="step-text"><strong>Enter Phone Number</strong><p>Type the number you want data sent to at the top.</p></div>
-  </div>
-  <div class="step">
-    <div class="step-num">2</div>
-    <div class="step-text"><strong>Select Network</strong><p>Tap MTN, GLO, Airtel or 9mobile.</p></div>
-  </div>
-  <div class="step">
-    <div class="step-num">3</div>
-    <div class="step-text"><strong>Choose a Plan</strong><p>Switch tabs to browse SME, Monthly, Weekly and more. Tap your plan.</p></div>
-  </div>
-  <div class="step">
-    <div class="step-num">4</div>
-    <div class="step-text"><strong>Tap "Proceed via WhatsApp"</strong><p>Your order opens in WhatsApp. We send account details immediately.</p></div>
-  </div>
-  <div class="step">
-    <div class="step-num">5</div>
-    <div class="step-text"><strong>Pay & Get Data ⚡</strong><p>Send payment screenshot. We deliver your data within minutes.</p></div>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<div class="divider"></div>
-<div class="sec-header">About Us</div>
-<div class="about-card">
-  <h3>BankDataSub</h3>
-  <div class="contact-row">
-    <div class="contact-ico">📧</div>
-    <div class="contact-info">
-      <small>Email</small>
-      <a href="mailto:johnnytriggerjohnny@gmail.com">johnnytriggerjohnny@gmail.com</a>
+    <div>
+      <div class="brand-text">Bank<span class="data">Data</span>Sub</div>
     </div>
   </div>
-  <div class="contact-row">
-    <div class="contact-ico">📞</div>
-    <div class="contact-info">
-      <small>WhatsApp / Call</small>
-      <a href="tel:+2348030847205">0803 084 7205</a>
+  <div class="header-tag">⚡ Instant Data</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🇳🇬 Nigeria's #1 Cheap Data Store</div>
+  <h1>Buy Cheap Data,<br/>Pay &amp; Get Delivered Fast</h1>
+  <p>Select your network, pick a plan, enter your number — then pay manually and send your screenshot via WhatsApp. Simple.</p>
+</div>
+
+<main>
+
+  <!-- STEP 1: NETWORK -->
+  <div class="section-label">01 — Select Network</div>
+  <div class="card">
+    <div class="net-tabs" id="netTabs">
+      <button class="net-tab active" data-net="MTN"><span class="dot"></span>MTN</button>
+      <button class="net-tab" data-net="GLO"><span class="dot"></span>GLO</button>
+      <button class="net-tab" data-net="Airtel"><span class="dot"></span>Airtel</button>
+      <button class="net-tab" data-net="9mobile"><span class="dot"></span>9mobile</button>
+    </div>
+
+    <!-- STEP 2: PLAN -->
+    <div class="section-label" style="margin-top:4px;">02 — Choose Plan</div>
+    <div class="dur-tabs" id="durTabs">
+      <button class="dur-tab active" data-dur="Daily">📅 Daily</button>
+      <button class="dur-tab" data-dur="Weekly">📆 Weekly</button>
+      <button class="dur-tab" data-dur="Monthly">🗓️ Monthly</button>
+      <button class="dur-tab" data-dur="SME">♾️ SME</button>
+    </div>
+    <div class="plan-grid" id="planGrid"></div>
+  </div>
+
+  <!-- STEP 3: PHONE -->
+  <div class="section-label">03 — Your Phone Number</div>
+  <div class="card">
+    <div class="input-group">
+      <label>Enter the number to receive the data</label>
+      <div class="phone-input-wrap">
+        <span class="phone-prefix">🇳🇬 +234</span>
+        <input type="tel" id="phoneInput" placeholder="e.g. 0803 000 0000" maxlength="11" inputmode="numeric"/>
+      </div>
+    </div>
+
+    <div id="summary-strip">
+      <strong>Order Summary</strong><br/>
+      Network: <strong id="s-net">–</strong> &nbsp;|&nbsp;
+      Plan: <strong id="s-plan">–</strong> &nbsp;|&nbsp;
+      Price: <strong id="s-price">–</strong><br/>
+      Deliver to: <strong id="s-phone">–</strong>
+    </div>
+
+    <button class="wa-btn idle" id="waBtn" onclick="openWhatsApp()">
+      <svg width="22" height="22" viewBox="0 0 32 32" fill="white">
+        <path d="M16.004 2.667C8.636 2.667 2.667 8.635 2.667 16c0 2.313.616 4.58 1.785 6.569L2.667 29.333l6.953-1.762A13.31 13.31 0 0016.004 29.333c7.368 0 13.329-5.969 13.329-13.333 0-7.365-5.961-13.333-13.329-13.333zm0 24.267a11.004 11.004 0 01-5.62-1.545l-.403-.239-4.126 1.045 1.075-3.997-.261-.41A10.934 10.934 0 015.001 16c0-6.068 4.935-11 11.003-11C22.073 5 27 9.932 27 16c0 6.069-4.927 11-10.996 11zM22.1 18.91c-.334-.167-1.975-.972-2.28-1.084-.306-.111-.529-.167-.752.167-.222.333-.862 1.083-1.056 1.306-.195.222-.389.25-.723.083-.334-.167-1.41-.52-2.685-1.657-.992-.884-1.661-1.975-1.856-2.31-.194-.333-.021-.513.146-.68.15-.15.334-.389.5-.583.167-.194.222-.333.334-.555.111-.222.056-.417-.028-.584-.083-.166-.752-1.812-1.03-2.479-.272-.651-.547-.562-.752-.572-.194-.009-.417-.011-.64-.011s-.584.083-.89.417c-.306.333-1.167 1.14-1.167 2.778s1.195 3.222 1.361 3.445c.167.222 2.35 3.587 5.694 5.03 3.345 1.443 3.345.962 3.947.901.603-.062 1.945-.794 2.22-1.56.278-.766.278-1.423.195-1.56-.083-.138-.306-.222-.64-.389z"/>
+      </svg>
+      Send Screenshot via WhatsApp
+    </button>
+  </div>
+
+  <!-- INSTRUCTIONS -->
+  <div class="section-label">How It Works</div>
+  <div class="card">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Select Your Network &amp; Plan</strong>
+          <p>Choose your network (MTN, GLO, Airtel, or 9mobile) and tap the data plan that suits you.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Enter Your Phone Number</strong>
+          <p>Type in the Nigerian number you want the data delivered to. Double-check for accuracy.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Make Payment</strong>
+          <p>Transfer the exact amount to our account details which will be provided in the WhatsApp chat. Use your bank app or USSD.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Send Your Screenshot</strong>
+          <p>Click the "Send Screenshot via WhatsApp" button — it opens a pre-filled message. Attach your payment proof and hit send.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Receive Your Data</strong>
+          <p>Our team verifies your payment and sends the data directly to your number — usually within minutes!</p>
+        </div>
+      </div>
     </div>
   </div>
-  <p class="about-desc">Nigeria's trusted data reseller — cheapest SME, Corporate & Gifting bundles on MTN, GLO, Airtel & 9mobile. Fast delivery, honest pricing, zero stress.</p>
-</div>
-<div style="height:10px"></div>
 
-<div class="toast" id="toast"></div>
+  <!-- ABOUT US -->
+  <div class="section-label">About Us</div>
+  <div class="card">
+    <div class="about-grid">
+      <div class="about-item">
+        <div class="about-icon">📧</div>
+        <div class="about-item-text">
+          <small>Email</small>
+          <a href="/cdn-cgi/l/email-protection#8ce6e3e4e2e2f5f8fee5ebebe9fee6e3e4e2e2f5ccebe1ede5e0a2efe3e1">johnnytriggerjohnny<br/>@gmail.com</a>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">📞</div>
+        <div class="about-item-text">
+          <small>WhatsApp / Call</small>
+          <a href="tel:+2348030847205"><span>0803 084 7205</span></a>
+        </div>
+      </div>
+    </div>
+    <p class="about-desc">
+      <strong style="color:var(--white);">BankDataSub</strong> is a trusted Nigerian data reseller offering the cheapest data bundles on MTN, GLO, Airtel, and 9mobile. We pride ourselves on fast delivery, honest pricing, and reliable customer support. Your data, your way — simple, affordable, and instant.
+    </p>
+  </div>
 
-<script>
-// ══════════════════
-// DATA PLANS
-// ══════════════════
-var PLANS = {
+</main>
+
+<footer>
+  © 2025 BankDataSub · Fast · Affordable · Trusted &nbsp;|&nbsp; WhatsApp: 08030847205
+</footer>
+
+<div class="toast" id="toast">Opening WhatsApp… 🚀</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const PLANS = {
   MTN: {
-    sme: [
-      {size:'500MB', val:'30 Days', old:160, price:110, icon:'💼', badge:'cheap', desc:'SME · No Sharing'},
-      {size:'1GB',   val:'30 Days', old:280, price:195, icon:'💼', badge:'hot',   desc:'SME · No Sharing'},
-      {size:'2GB',   val:'30 Days', old:520, price:360, icon:'💼', badge:'hot',   desc:'SME · No Sharing'},
-      {size:'3GB',   val:'30 Days', old:740, price:510, icon:'💼', badge:'top',   desc:'SME · No Sharing'},
-      {size:'5GB',   val:'30 Days', old:1150,price:790, icon:'💼', badge:'top',   desc:'SME · No Sharing'},
-      {size:'10GB',  val:'30 Days', old:2100,price:1450,icon:'💼', badge:'',      desc:'SME · No Sharing'},
-      {size:'15GB',  val:'30 Days', old:3000,price:2050,icon:'💼', badge:'',      desc:'SME · No Sharing'},
-      {size:'20GB',  val:'30 Days', old:3800,price:2620,icon:'💼', badge:'',      desc:'SME · No Sharing'},
-      {size:'30GB',  val:'30 Days', old:5400,price:3750,icon:'💼', badge:'new',   desc:'SME · No Sharing'},
-      {size:'50GB',  val:'30 Days', old:8400,price:5850,icon:'💼', badge:'new',   desc:'SME · No Sharing'},
+    Daily: [
+      { size:'500MB', validity:'1 Day',  old:550,  price:400 },
+      { size:'1GB',   validity:'1 Day',  old:1100, price:800 },
+      { size:'2GB',   validity:'1 Day',  old:1900, price:1400 },
+      { size:'5GB',   validity:'1 Day',  old:4000, price:3000 },
     ],
-    gifting: [
-      {size:'100MB', val:'1 Day',   old:55,  price:38,  icon:'🎁', badge:'cheap', desc:'Gifting Bundle'},
-      {size:'250MB', val:'1 Day',   old:90,  price:62,  icon:'🎁', badge:'cheap', desc:'Gifting Bundle'},
-      {size:'500MB', val:'1 Day',   old:135, price:92,  icon:'🎁', badge:'hot',   desc:'Gifting Bundle'},
-      {size:'1GB',   val:'1 Day',   old:220, price:150, icon:'🎁', badge:'hot',   desc:'Gifting Bundle'},
-      {size:'1.5GB', val:'3 Days',  old:320, price:218, icon:'🎁', badge:'',      desc:'Gifting Bundle'},
-      {size:'2GB',   val:'3 Days',  old:420, price:288, icon:'🎁', badge:'',      desc:'Gifting Bundle'},
-      {size:'3GB',   val:'7 Days',  old:620, price:425, icon:'🎁', badge:'top',   desc:'Gifting Bundle'},
-      {size:'5GB',   val:'7 Days',  old:960, price:658, icon:'🎁', badge:'top',   desc:'Gifting Bundle'},
-      {size:'10GB',  val:'30 Days', old:2200,price:1510,icon:'🎁', badge:'new',   desc:'Gifting Bundle'},
+    Weekly: [
+      { size:'1GB',   validity:'7 Days', old:1400, price:1000 },
+      { size:'2GB',   validity:'7 Days', old:2500, price:1800 },
+      { size:'5GB',   validity:'7 Days', old:4800, price:3500, popular:true },
+      { size:'10GB',  validity:'7 Days', old:8000, price:6000 },
     ],
-    corporate: [
-      {size:'1GB',   val:'30 Days', old:310, price:210, icon:'🏢', badge:'',      desc:'Corporate · Shareable'},
-      {size:'2GB',   val:'30 Days', old:590, price:400, icon:'🏢', badge:'',      desc:'Corporate · Shareable'},
-      {size:'5GB',   val:'30 Days', old:1280,price:870, icon:'🏢', badge:'top',   desc:'Corporate · Shareable'},
-      {size:'10GB',  val:'30 Days', old:2380,price:1620,icon:'🏢', badge:'top',   desc:'Corporate · Shareable'},
-      {size:'20GB',  val:'30 Days', old:4200,price:2880,icon:'🏢', badge:'new',   desc:'Corporate · Shareable'},
-      {size:'50GB',  val:'30 Days', old:8900,price:6100,icon:'🏢', badge:'new',   desc:'Corporate · Shareable'},
-      {size:'100GB', val:'30 Days', old:16000,price:10900,icon:'🏢',badge:'new',  desc:'Corporate · Shareable'},
+    Monthly: [
+      { size:'1GB',   validity:'30 Days', old:2000,  price:1500 },
+      { size:'2GB',   validity:'30 Days', old:3300,  price:2500 },
+      { size:'5GB',   validity:'30 Days', old:6500,  price:5000, popular:true },
+      { size:'10GB',  validity:'30 Days', old:11000, price:8500 },
+      { size:'20GB',  validity:'30 Days', old:19000, price:15000 },
+      { size:'50GB',  validity:'30 Days', old:38000, price:30000 },
     ],
-    weekly: [
-      {size:'1GB',   val:'7 Days',  old:260, price:178, icon:'📡', badge:'',      desc:'7-Day Bundle'},
-      {size:'1.5GB', val:'7 Days',  old:370, price:252, icon:'📡', badge:'',      desc:'7-Day Bundle'},
-      {size:'2GB',   val:'7 Days',  old:480, price:328, icon:'📡', badge:'hot',   desc:'7-Day Bundle'},
-      {size:'3GB',   val:'7 Days',  old:640, price:436, icon:'📡', badge:'hot',   desc:'7-Day Bundle'},
-      {size:'5GB',   val:'7 Days',  old:960, price:656, icon:'📡', badge:'top',   desc:'7-Day Bundle'},
-      {size:'7GB',   val:'7 Days',  old:1280,price:876, icon:'📡', badge:'top',   desc:'7-Day Bundle'},
-      {size:'10GB',  val:'7 Days',  old:1700,price:1165,icon:'📡', badge:'',      desc:'7-Day Bundle'},
+    SME: [
+      { size:'1GB',   validity:'No Expiry', old:400,   price:280 },
+      { size:'2GB',   validity:'No Expiry', old:750,   price:550 },
+      { size:'5GB',   validity:'No Expiry', old:1800,  price:1300, popular:true },
+      { size:'10GB',  validity:'No Expiry', old:3300,  price:2500 },
+      { size:'20GB',  validity:'No Expiry', old:6500,  price:4800 },
+      { size:'50GB',  validity:'No Expiry', old:15000, price:11500 },
     ],
-    monthly: [
-      {size:'1GB',   val:'30 Days', old:310, price:210, icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'2GB',   val:'30 Days', old:580, price:395, icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'3GB',   val:'30 Days', old:790, price:538, icon:'🌐', badge:'hot',   desc:'30-Day Bundle'},
-      {size:'5GB',   val:'30 Days', old:1260,price:860, icon:'🌐', badge:'top',   desc:'30-Day Bundle'},
-      {size:'7GB',   val:'30 Days', old:1700,price:1160,icon:'🌐', badge:'top',   desc:'30-Day Bundle'},
-      {size:'10GB',  val:'30 Days', old:2320,price:1585,icon:'🌐', badge:'top',   desc:'30-Day Bundle'},
-      {size:'15GB',  val:'30 Days', old:3200,price:2190,icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'20GB',  val:'30 Days', old:3980,price:2720,icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'30GB',  val:'30 Days', old:5700,price:3900,icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'50GB',  val:'30 Days', old:9000,price:6170,icon:'🌐', badge:'new',   desc:'30-Day Bundle'},
-      {size:'100GB', val:'30 Days', old:16000,price:10980,icon:'🌐',badge:'new',  desc:'30-Day Bundle'},
-    ],
-    '2months': [
-      {size:'5GB',   val:'60 Days', old:2300,price:1570,icon:'💎', badge:'',      desc:'60-Day Bundle'},
-      {size:'10GB',  val:'60 Days', old:4200,price:2880,icon:'💎', badge:'top',   desc:'60-Day Bundle'},
-      {size:'20GB',  val:'60 Days', old:7600,price:5220,icon:'💎', badge:'',      desc:'60-Day Bundle'},
-      {size:'30GB',  val:'90 Days', old:9800,price:6730,icon:'💎', badge:'new',   desc:'90-Day Bundle'},
-      {size:'50GB',  val:'90 Days', old:15000,price:10300,icon:'💎',badge:'new',  desc:'90-Day Bundle'},
-    ],
-    yearly: [
-      {size:'12GB',  val:'365 Days',old:8200,price:5640,icon:'🏆', badge:'top',   desc:'Annual Bundle'},
-      {size:'24GB',  val:'365 Days',old:14500,price:9970,icon:'🏆',badge:'top',   desc:'Annual Bundle'},
-      {size:'36GB',  val:'365 Days',old:20000,price:13750,icon:'🏆',badge:'new',  desc:'Annual Bundle'},
-      {size:'50GB',  val:'365 Days',old:26000,price:17900,icon:'🏆',badge:'new',  desc:'Annual Bundle'},
-    ],
-    social: [
-      {size:'1GB',   val:'1 Day',   old:200, price:138, icon:'📲', badge:'hot',   desc:'Instagram · TikTok · X'},
-      {size:'2GB',   val:'3 Days',  old:380, price:261, icon:'📲', badge:'hot',   desc:'WhatsApp · FB · Snap'},
-      {size:'3GB',   val:'7 Days',  old:550, price:378, icon:'📲', badge:'top',   desc:'All Social Apps'},
-      {size:'5GB',   val:'7 Days',  old:860, price:592, icon:'📲', badge:'top',   desc:'All Social Apps'},
-      {size:'10GB',  val:'30 Days', old:1900,price:1310,icon:'📲', badge:'new',   desc:'All Social Apps'},
-    ]
   },
   GLO: {
-    sme: [
-      {size:'500MB', val:'30 Days', old:150, price:102, icon:'💼', badge:'cheap', desc:'SME · No Sharing'},
-      {size:'1GB',   val:'30 Days', old:268, price:183, icon:'💼', badge:'hot',   desc:'SME · No Sharing'},
-      {size:'2GB',   val:'30 Days', old:498, price:340, icon:'💼', badge:'hot',   desc:'SME · No Sharing'},
-      {size:'3GB',   val:'30 Days', old:710, price:485, icon:'💼', badge:'top',   desc:'SME · No Sharing'},
-      {size:'5GB',   val:'30 Days', old:1100,price:752, icon:'💼', badge:'top',   desc:'SME · No Sharing'},
-      {size:'10GB',  val:'30 Days', old:2020,price:1382,icon:'💼', badge:'',      desc:'SME · No Sharing'},
-      {size:'20GB',  val:'30 Days', old:3640,price:2492,icon:'💼', badge:'',      desc:'SME · No Sharing'},
-      {size:'50GB',  val:'30 Days', old:8060,price:5522,icon:'💼', badge:'new',   desc:'SME · No Sharing'},
+    Daily: [
+      { size:'500MB', validity:'1 Day',  old:500,  price:350 },
+      { size:'1GB',   validity:'1 Day',  old:950,  price:700 },
+      { size:'2GB',   validity:'1 Day',  old:1700, price:1200 },
+      { size:'5GB',   validity:'1 Day',  old:3700, price:2700 },
     ],
-    gifting: [
-      {size:'100MB', val:'1 Day',   old:50,  price:34,  icon:'🎁', badge:'cheap', desc:'Gifting Bundle'},
-      {size:'250MB', val:'1 Day',   old:84,  price:58,  icon:'🎁', badge:'cheap', desc:'Gifting Bundle'},
-      {size:'500MB', val:'1 Day',   old:126, price:86,  icon:'🎁', badge:'hot',   desc:'Gifting Bundle'},
-      {size:'1GB',   val:'1 Day',   old:208, price:142, icon:'🎁', badge:'hot',   desc:'Gifting Bundle'},
-      {size:'2GB',   val:'3 Days',  old:398, price:272, icon:'🎁', badge:'',      desc:'Gifting Bundle'},
-      {size:'3GB',   val:'7 Days',  old:592, price:404, icon:'🎁', badge:'top',   desc:'Gifting Bundle'},
-      {size:'5GB',   val:'7 Days',  old:914, price:626, icon:'🎁', badge:'top',   desc:'Gifting Bundle'},
-      {size:'10GB',  val:'30 Days', old:2090,price:1432,icon:'🎁', badge:'new',   desc:'Gifting Bundle'},
+    Weekly: [
+      { size:'1GB',   validity:'7 Days', old:1250, price:900 },
+      { size:'2GB',   validity:'7 Days', old:2200, price:1600 },
+      { size:'5GB',   validity:'7 Days', old:4400, price:3200, popular:true },
+      { size:'10GB',  validity:'7 Days', old:7500, price:5500 },
     ],
-    corporate: [
-      {size:'5GB',   val:'30 Days', old:1220,price:834, icon:'🏢', badge:'top',   desc:'Corporate · Shareable'},
-      {size:'10GB',  val:'30 Days', old:2260,price:1546,icon:'🏢', badge:'top',   desc:'Corporate · Shareable'},
-      {size:'20GB',  val:'30 Days', old:4000,price:2740,icon:'🏢', badge:'new',   desc:'Corporate · Shareable'},
-      {size:'50GB',  val:'30 Days', old:8500,price:5820,icon:'🏢', badge:'new',   desc:'Corporate · Shareable'},
-      {size:'100GB', val:'30 Days', old:15200,price:10420,icon:'🏢',badge:'new',  desc:'Corporate · Shareable'},
+    Monthly: [
+      { size:'1GB',   validity:'30 Days', old:1800,  price:1300 },
+      { size:'2GB',   validity:'30 Days', old:3000,  price:2200 },
+      { size:'5GB',   validity:'30 Days', old:6000,  price:4500, popular:true },
+      { size:'10GB',  validity:'30 Days', old:10500, price:7800 },
+      { size:'20GB',  validity:'30 Days', old:18000, price:13500 },
+      { size:'50GB',  validity:'30 Days', old:35000, price:27000 },
     ],
-    weekly: [
-      {size:'1GB',   val:'7 Days',  old:248, price:170, icon:'📡', badge:'',      desc:'7-Day Bundle'},
-      {size:'2GB',   val:'7 Days',  old:458, price:314, icon:'📡', badge:'hot',   desc:'7-Day Bundle'},
-      {size:'3GB',   val:'7 Days',  old:610, price:418, icon:'📡', badge:'hot',   desc:'7-Day Bundle'},
-      {size:'5GB',   val:'7 Days',  old:918, price:628, icon:'📡', badge:'top',   desc:'7-Day Bundle'},
-      {size:'10GB',  val:'7 Days',  old:1624,price:1112,icon:'📡', badge:'',      desc:'7-Day Bundle'},
+    SME: [
+      { size:'1GB',   validity:'No Expiry', old:350,   price:250 },
+      { size:'2GB',   validity:'No Expiry', old:680,   price:490 },
+      { size:'5GB',   validity:'No Expiry', old:1600,  price:1150, popular:true },
+      { size:'10GB',  validity:'No Expiry', old:3000,  price:2200 },
+      { size:'20GB',  validity:'No Expiry', old:6000,  price:4300 },
+      { size:'50GB',  validity:'No Expiry', old:14000, price:10500 },
     ],
-    monthly: [
-      {size:'1GB',   val:'30 Days', old:294, price:200, icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'2GB',   val:'30 Days', old:552, price:378, icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'3GB',   val:'30 Days', old:752, price:514, icon:'🌐', badge:'hot',   desc:'30-Day Bundle'},
-      {size:'5GB',   val:'30 Days', old:1200,price:820, icon:'🌐', badge:'top',   desc:'30-Day Bundle'},
-      {size:'10GB',  val:'30 Days', old:2210,price:1512,icon:'🌐', badge:'top',   desc:'30-Day Bundle'},
-      {size:'20GB',  val:'30 Days', old:3800,price:2604,icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'50GB',  val:'30 Days', old:8580,price:5880,icon:'🌐', badge:'new',   desc:'30-Day Bundle'},
-      {size:'100GB', val:'30 Days', old:15280,price:10480,icon:'🌐',badge:'new',  desc:'30-Day Bundle'},
-    ],
-    '2months': [
-      {size:'10GB',  val:'60 Days', old:3980,price:2726,icon:'💎', badge:'top',   desc:'60-Day Bundle'},
-      {size:'20GB',  val:'60 Days', old:7240,price:4966,icon:'💎', badge:'',      desc:'60-Day Bundle'},
-      {size:'30GB',  val:'90 Days', old:9360,price:6422,icon:'💎', badge:'new',   desc:'90-Day Bundle'},
-    ],
-    yearly: [
-      {size:'12GB',  val:'365 Days',old:7830,price:5370,icon:'🏆', badge:'top',   desc:'Annual Bundle'},
-      {size:'24GB',  val:'365 Days',old:13870,price:9510,icon:'🏆',badge:'new',   desc:'Annual Bundle'},
-      {size:'50GB',  val:'365 Days',old:24800,price:17040,icon:'🏆',badge:'new',  desc:'Annual Bundle'},
-    ],
-    social: [
-      {size:'1GB',   val:'1 Day',   old:190, price:130, icon:'📲', badge:'hot',   desc:'Instagram · TikTok · X'},
-      {size:'3GB',   val:'7 Days',  old:524, price:360, icon:'📲', badge:'top',   desc:'All Social Apps'},
-      {size:'10GB',  val:'30 Days', old:1814,price:1244,icon:'📲', badge:'new',   desc:'All Social Apps'},
-    ]
   },
   Airtel: {
-    sme: [
-      {size:'500MB', val:'30 Days', old:154, price:105, icon:'💼', badge:'cheap', desc:'SME · No Sharing'},
-      {size:'1GB',   val:'30 Days', old:272, price:186, icon:'💼', badge:'hot',   desc:'SME · No Sharing'},
-      {size:'2GB',   val:'30 Days', old:506, price:346, icon:'💼', badge:'hot',   desc:'SME · No Sharing'},
-      {size:'3GB',   val:'30 Days', old:722, price:494, icon:'💼', badge:'top',   desc:'SME · No Sharing'},
-      {size:'5GB',   val:'30 Days', old:1120,price:766, icon:'💼', badge:'top',   desc:'SME · No Sharing'},
-      {size:'10GB',  val:'30 Days', old:2060,price:1410,icon:'💼', badge:'',      desc:'SME · No Sharing'},
-      {size:'20GB',  val:'30 Days', old:3720,price:2548,icon:'💼', badge:'',      desc:'SME · No Sharing'},
-      {size:'50GB',  val:'30 Days', old:8220,price:5634,icon:'💼', badge:'new',   desc:'SME · No Sharing'},
+    Daily: [
+      { size:'500MB', validity:'1 Day',  old:530,  price:380 },
+      { size:'1GB',   validity:'1 Day',  old:1050, price:750 },
+      { size:'2GB',   validity:'1 Day',  old:1800, price:1300 },
+      { size:'5GB',   validity:'1 Day',  old:3900, price:2900 },
     ],
-    gifting: [
-      {size:'100MB', val:'1 Day',   old:52,  price:36,  icon:'🎁', badge:'cheap', desc:'Gifting Bundle'},
-      {size:'500MB', val:'1 Day',   old:128, price:88,  icon:'🎁', badge:'hot',   desc:'Gifting Bundle'},
-      {size:'1GB',   val:'1 Day',   old:212, price:144, icon:'🎁', badge:'hot',   desc:'Gifting Bundle'},
-      {size:'2GB',   val:'3 Days',  old:406, price:278, icon:'🎁', badge:'',      desc:'Gifting Bundle'},
-      {size:'5GB',   val:'7 Days',  old:932, price:638, icon:'🎁', badge:'top',   desc:'Gifting Bundle'},
-      {size:'10GB',  val:'30 Days', old:2132,price:1460,icon:'🎁', badge:'new',   desc:'Gifting Bundle'},
+    Weekly: [
+      { size:'1GB',   validity:'7 Days', old:1300, price:950 },
+      { size:'2GB',   validity:'7 Days', old:2500, price:1800, popular:true },
+      { size:'5GB',   validity:'7 Days', old:4600, price:3400 },
+      { size:'10GB',  validity:'7 Days', old:7800, price:5800 },
     ],
-    corporate: [
-      {size:'5GB',   val:'30 Days', old:1244,price:852, icon:'🏢', badge:'top',   desc:'Corporate · Shareable'},
-      {size:'10GB',  val:'30 Days', old:2304,price:1578,icon:'🏢', badge:'top',   desc:'Corporate · Shareable'},
-      {size:'20GB',  val:'30 Days', old:4080,price:2796,icon:'🏢', badge:'new',   desc:'Corporate · Shareable'},
-      {size:'100GB', val:'30 Days', old:15520,price:10640,icon:'🏢',badge:'new',  desc:'Corporate · Shareable'},
+    Monthly: [
+      { size:'1GB',   validity:'30 Days', old:1900,  price:1400 },
+      { size:'2GB',   validity:'30 Days', old:3200,  price:2400 },
+      { size:'5GB',   validity:'30 Days', old:6400,  price:4800, popular:true },
+      { size:'10GB',  validity:'30 Days', old:11000, price:8200 },
+      { size:'20GB',  validity:'30 Days', old:19000, price:14500 },
+      { size:'50GB',  validity:'30 Days', old:37000, price:28500 },
     ],
-    weekly: [
-      {size:'1GB',   val:'7 Days',  old:252, price:172, icon:'📡', badge:'',      desc:'7-Day Bundle'},
-      {size:'2GB',   val:'7 Days',  old:466, price:320, icon:'📡', badge:'hot',   desc:'7-Day Bundle'},
-      {size:'3GB',   val:'7 Days',  old:622, price:426, icon:'📡', badge:'hot',   desc:'7-Day Bundle'},
-      {size:'5GB',   val:'7 Days',  old:934, price:640, icon:'📡', badge:'top',   desc:'7-Day Bundle'},
-      {size:'10GB',  val:'7 Days',  old:1654,price:1134,icon:'📡', badge:'',      desc:'7-Day Bundle'},
+    SME: [
+      { size:'1GB',   validity:'No Expiry', old:380,   price:270 },
+      { size:'2GB',   validity:'No Expiry', old:720,   price:520 },
+      { size:'5GB',   validity:'No Expiry', old:1750,  price:1250, popular:true },
+      { size:'10GB',  validity:'No Expiry', old:3300,  price:2400 },
+      { size:'20GB',  validity:'No Expiry', old:6300,  price:4600 },
+      { size:'50GB',  validity:'No Expiry', old:15000, price:11000 },
     ],
-    monthly: [
-      {size:'1GB',   val:'30 Days', old:299, price:204, icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'2GB',   val:'30 Days', old:561, price:384, icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'3GB',   val:'30 Days', old:764, price:523, icon:'🌐', badge:'hot',   desc:'30-Day Bundle'},
-      {size:'5GB',   val:'30 Days', old:1222,price:836, icon:'🌐', badge:'top',   desc:'30-Day Bundle'},
-      {size:'10GB',  val:'30 Days', old:2254,price:1542,icon:'🌐', badge:'top',   desc:'30-Day Bundle'},
-      {size:'20GB',  val:'30 Days', old:3876,price:2656,icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'50GB',  val:'30 Days', old:8756,price:5998,icon:'🌐', badge:'new',   desc:'30-Day Bundle'},
-      {size:'100GB', val:'30 Days', old:15596,price:10690,icon:'🌐',badge:'new',  desc:'30-Day Bundle'},
-    ],
-    '2months': [
-      {size:'10GB',  val:'60 Days', old:4060,price:2782,icon:'💎', badge:'top',   desc:'60-Day Bundle'},
-      {size:'20GB',  val:'60 Days', old:7380,price:5062,icon:'💎', badge:'',      desc:'60-Day Bundle'},
-      {size:'30GB',  val:'90 Days', old:9560,price:6552,icon:'💎', badge:'new',   desc:'90-Day Bundle'},
-    ],
-    yearly: [
-      {size:'12GB',  val:'365 Days',old:7990,price:5500,icon:'🏆', badge:'top',   desc:'Annual Bundle'},
-      {size:'24GB',  val:'365 Days',old:14150,price:9700,icon:'🏆',badge:'new',   desc:'Annual Bundle'},
-      {size:'50GB',  val:'365 Days',old:25320,price:17390,icon:'🏆',badge:'new',  desc:'Annual Bundle'},
-    ],
-    social: [
-      {size:'1GB',   val:'1 Day',   old:194, price:133, icon:'📲', badge:'hot',   desc:'Instagram · TikTok · X'},
-      {size:'3GB',   val:'7 Days',  old:535, price:367, icon:'📲', badge:'top',   desc:'All Social Apps'},
-      {size:'10GB',  val:'30 Days', old:1850,price:1268,icon:'📲', badge:'new',   desc:'All Social Apps'},
-    ]
   },
   '9mobile': {
-    sme: [
-      {size:'500MB', val:'30 Days', old:142, price:97,  icon:'💼', badge:'cheap', desc:'SME · No Sharing'},
-      {size:'1GB',   val:'30 Days', old:254, price:174, icon:'💼', badge:'hot',   desc:'SME · No Sharing'},
-      {size:'2GB',   val:'30 Days', old:474, price:325, icon:'💼', badge:'hot',   desc:'SME · No Sharing'},
-      {size:'3GB',   val:'30 Days', old:676, price:463, icon:'💼', badge:'top',   desc:'SME · No Sharing'},
-      {size:'5GB',   val:'30 Days', old:1050,price:719, icon:'💼', badge:'top',   desc:'SME · No Sharing'},
-      {size:'10GB',  val:'30 Days', old:1930,price:1322,icon:'💼', badge:'',      desc:'SME · No Sharing'},
-      {size:'20GB',  val:'30 Days', old:3490,price:2391,icon:'💼', badge:'',      desc:'SME · No Sharing'},
-      {size:'50GB',  val:'30 Days', old:7700,price:5280,icon:'💼', badge:'new',   desc:'SME · No Sharing'},
+    Daily: [
+      { size:'500MB', validity:'1 Day',  old:520,  price:370 },
+      { size:'1GB',   validity:'1 Day',  old:1000, price:720 },
+      { size:'2GB',   validity:'1 Day',  old:1750, price:1250 },
+      { size:'5GB',   validity:'1 Day',  old:3800, price:2800 },
     ],
-    gifting: [
-      {size:'100MB', val:'1 Day',   old:46,  price:32,  icon:'🎁', badge:'cheap', desc:'Gifting Bundle'},
-      {size:'500MB', val:'1 Day',   old:118, price:81,  icon:'🎁', badge:'hot',   desc:'Gifting Bundle'},
-      {size:'1GB',   val:'1 Day',   old:196, price:134, icon:'🎁', badge:'hot',   desc:'Gifting Bundle'},
-      {size:'2GB',   val:'3 Days',  old:380, price:261, icon:'🎁', badge:'',      desc:'Gifting Bundle'},
-      {size:'5GB',   val:'7 Days',  old:874, price:600, icon:'🎁', badge:'top',   desc:'Gifting Bundle'},
-      {size:'10GB',  val:'30 Days', old:1998,price:1370,icon:'🎁', badge:'new',   desc:'Gifting Bundle'},
+    Weekly: [
+      { size:'1GB',   validity:'7 Days', old:1280, price:920 },
+      { size:'2GB',   validity:'7 Days', old:2300, price:1700 },
+      { size:'5GB',   validity:'7 Days', old:4500, price:3300, popular:true },
+      { size:'10GB',  validity:'7 Days', old:7600, price:5600 },
     ],
-    corporate: [
-      {size:'5GB',   val:'30 Days', old:1166,price:800, icon:'🏢', badge:'top',   desc:'Corporate · Shareable'},
-      {size:'10GB',  val:'30 Days', old:2160,price:1480,icon:'🏢', badge:'top',   desc:'Corporate · Shareable'},
-      {size:'20GB',  val:'30 Days', old:3824,price:2622,icon:'🏢', badge:'new',   desc:'Corporate · Shareable'},
-      {size:'100GB', val:'30 Days', old:14560,price:9980,icon:'🏢',badge:'new',   desc:'Corporate · Shareable'},
+    Monthly: [
+      { size:'1GB',   validity:'30 Days', old:1850,  price:1350 },
+      { size:'2GB',   validity:'30 Days', old:3100,  price:2300 },
+      { size:'5GB',   validity:'30 Days', old:6200,  price:4600, popular:true },
+      { size:'10GB',  validity:'30 Days', old:10800, price:8000 },
+      { size:'20GB',  validity:'30 Days', old:18500, price:13800 },
+      { size:'50GB',  validity:'30 Days', old:36000, price:26500 },
     ],
-    weekly: [
-      {size:'1GB',   val:'7 Days',  old:236, price:162, icon:'📡', badge:'',      desc:'7-Day Bundle'},
-      {size:'2GB',   val:'7 Days',  old:436, price:300, icon:'📡', badge:'hot',   desc:'7-Day Bundle'},
-      {size:'3GB',   val:'7 Days',  old:583, price:400, icon:'📡', badge:'hot',   desc:'7-Day Bundle'},
-      {size:'5GB',   val:'7 Days',  old:876, price:601, icon:'📡', badge:'top',   desc:'7-Day Bundle'},
-      {size:'10GB',  val:'7 Days',  old:1552,price:1064,icon:'📡', badge:'',      desc:'7-Day Bundle'},
+    SME: [
+      { size:'1GB',   validity:'No Expiry', old:360,   price:260 },
+      { size:'2GB',   validity:'No Expiry', old:700,   price:500 },
+      { size:'5GB',   validity:'No Expiry', old:1700,  price:1200, popular:true },
+      { size:'10GB',  validity:'No Expiry', old:3200,  price:2300 },
+      { size:'20GB',  validity:'No Expiry', old:6100,  price:4400 },
+      { size:'50GB',  validity:'No Expiry', old:14500, price:10800 },
     ],
-    monthly: [
-      {size:'1GB',   val:'30 Days', old:280, price:192, icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'2GB',   val:'30 Days', old:526, price:361, icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'3GB',   val:'30 Days', old:716, price:491, icon:'🌐', badge:'hot',   desc:'30-Day Bundle'},
-      {size:'5GB',   val:'30 Days', old:1145,price:785, icon:'🌐', badge:'top',   desc:'30-Day Bundle'},
-      {size:'10GB',  val:'30 Days', old:2113,price:1448,icon:'🌐', badge:'top',   desc:'30-Day Bundle'},
-      {size:'20GB',  val:'30 Days', old:3636,price:2492,icon:'🌐', badge:'',      desc:'30-Day Bundle'},
-      {size:'50GB',  val:'30 Days', old:8214,price:5629,icon:'🌐', badge:'new',   desc:'30-Day Bundle'},
-      {size:'100GB', val:'30 Days', old:14634,price:10032,icon:'🌐',badge:'new',  desc:'30-Day Bundle'},
-    ],
-    '2months': [
-      {size:'10GB',  val:'60 Days', old:3806,price:2610,icon:'💎', badge:'top',   desc:'60-Day Bundle'},
-      {size:'20GB',  val:'60 Days', old:6922,price:4748,icon:'💎', badge:'',      desc:'60-Day Bundle'},
-      {size:'30GB',  val:'90 Days', old:8966,price:6150,icon:'💎', badge:'new',   desc:'90-Day Bundle'},
-    ],
-    yearly: [
-      {size:'12GB',  val:'365 Days',old:7498,price:5142,icon:'🏆', badge:'top',   desc:'Annual Bundle'},
-      {size:'24GB',  val:'365 Days',old:13274,price:9100,icon:'🏆',badge:'new',   desc:'Annual Bundle'},
-      {size:'50GB',  val:'365 Days',old:23754,price:16300,icon:'🏆',badge:'new',  desc:'Annual Bundle'},
-    ],
-    social: [
-      {size:'1GB',   val:'1 Day',   old:182, price:125, icon:'📲', badge:'hot',   desc:'Instagram · TikTok · X'},
-      {size:'3GB',   val:'7 Days',  old:501, price:344, icon:'📲', badge:'top',   desc:'All Social Apps'},
-      {size:'10GB',  val:'30 Days', old:1734,price:1190,icon:'📲', badge:'new',   desc:'All Social Apps'},
-    ]
-  }
+  },
 };
 
-// ══════════════════
-// STATE
-// ══════════════════
-var currentNet  = 'MTN';
-var currentTab  = 'sme';
-var currentPlan = null;
+let selectedNet = 'MTN';
+let selectedDur = 'Daily';
+let selectedPlan = null;
 
-function naira(n) { return '₦' + n.toLocaleString(); }
-function savePct(o, p) { return Math.round((o - p) / o * 100); }
+function fmt(n){ return '₦' + n.toLocaleString(); }
 
-// ══════════════════
-// RENDER PLANS
-// ══════════════════
-function renderPlans() {
-  var list = document.getElementById('planList');
-  var meta = document.getElementById('plansMeta');
-  var data = PLANS[currentNet][currentTab];
-  currentPlan = null;
-  updateSummary();
-
-  if (!data || data.length === 0) {
-    list.innerHTML = '<div class="no-plans">No plans available for this selection.</div>';
-    meta.textContent = '';
-    return;
-  }
-
-  meta.textContent = data.length + ' plan' + (data.length !== 1 ? 's' : '') + ' available';
-
-  var html = '';
-  for (var i = 0; i < data.length; i++) {
-    var p = data[i];
-    var badgeHtml = '';
-    if (p.badge === 'hot')   badgeHtml = '<span class="plan-badge badge-hot">🔥 Hot</span>';
-    if (p.badge === 'top')   badgeHtml = '<span class="plan-badge badge-top">⭐ Best</span>';
-    if (p.badge === 'new')   badgeHtml = '<span class="plan-badge badge-new">🆕 New</span>';
-    if (p.badge === 'cheap') badgeHtml = '<span class="plan-badge badge-cheap">💰 Cheap</span>';
-
-    html += '<div class="plan-row" data-index="' + i + '" onclick="selectPlan(this,' + i + ')">'
-      + '<div class="plan-icon">' + p.icon + '</div>'
-      + '<div class="plan-info">'
-        + '<div class="plan-name-row"><span class="plan-size">' + p.size + '</span>' + badgeHtml + '</div>'
-        + '<div class="plan-desc">' + p.val + ' · ' + p.desc + '</div>'
-      + '</div>'
-      + '<div class="plan-price">'
-        + '<div class="price-new">' + naira(p.price) + '</div>'
-        + '<div class="price-old">' + naira(p.old) + '</div>'
-        + '<div class="price-save">Save ' + savePct(p.old, p.price) + '%</div>'
-      + '</div>'
-      + '<div class="plan-radio"><div class="radio-dot"></div></div>'
-    + '</div>';
-  }
-  list.innerHTML = html;
+function renderPlans(net, dur){
+  const grid = document.getElementById('planGrid');
+  grid.innerHTML = '';
+  PLANS[net][dur].forEach((p) => {
+    const tile = document.createElement('div');
+    tile.className = 'plan-tile' + (selectedPlan && selectedPlan.size === p.size && selectedPlan.validity === p.validity ? ' selected' : '');
+    tile.innerHTML = `
+      <div class="plan-size">${p.size}${p.popular ? '<span class="popular-badge">⭐ HOT</span>' : ''}</div>
+      <div class="plan-validity">${p.validity}</div>
+      <div class="plan-prices">
+        <span class="plan-old">${fmt(p.old)}</span>
+        <span class="plan-new">${fmt(p.price)}</span>
+      </div>`;
+    tile.onclick = () => selectPlan(p, tile);
+    grid.appendChild(tile);
+  });
 }
 
-// ══════════════════
-// SELECT PLAN
-// ══════════════════
-function selectPlan(el, index) {
-  var rows = document.querySelectorAll('.plan-row');
-  for (var i = 0; i < rows.length; i++) {
-    rows[i].classList.remove('active');
-  }
-  el.classList.add('active');
-  currentPlan = PLANS[currentNet][currentTab][index];
+function selectPlan(plan, el){
+  document.querySelectorAll('.plan-tile').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPlan = plan;
   updateSummary();
 }
 
-// ══════════════════
-// SELECT NETWORK
-// ══════════════════
-function selectNetwork(el) {
-  var btns = document.querySelectorAll('.net-btn');
-  for (var i = 0; i < btns.length; i++) {
-    btns[i].classList.remove('active');
-  }
-  el.classList.add('active');
-  currentNet = el.getAttribute('data-net');
-  renderPlans();
-}
-
-// ══════════════════
-// SELECT TAB
-// ══════════════════
-function selectTab(el) {
-  var tabs = document.querySelectorAll('.tab');
-  for (var i = 0; i < tabs.length; i++) {
-    tabs[i].classList.remove('active');
-  }
-  el.classList.add('active');
-  currentTab = el.getAttribute('data-tab');
-  renderPlans();
-  el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-}
-
-// ══════════════════
-// UPDATE SUMMARY
-// ══════════════════
-function updateSummary() {
-  var phone = document.getElementById('phoneInput').value.trim();
-  var box = document.getElementById('summaryBox');
-  if (currentPlan) {
-    document.getElementById('s-net').textContent  = currentNet;
-    document.getElementById('s-plan').textContent = currentPlan.size;
-    document.getElementById('s-val').textContent  = currentPlan.val;
-    document.getElementById('s-type').textContent = currentPlan.desc;
-    document.getElementById('s-amt').textContent  = naira(currentPlan.price);
-    document.getElementById('s-phone').textContent = phone || 'Not entered yet';
-    box.classList.add('show');
-  } else {
-    box.classList.remove('show');
+function updateSummary(){
+  const phone = document.getElementById('phoneInput').value.trim();
+  const strip = document.getElementById('summary-strip');
+  if(selectedPlan){
+    document.getElementById('s-net').textContent   = selectedNet;
+    document.getElementById('s-plan').textContent  = selectedPlan.size + ' (' + selectedPlan.validity + ')';
+    document.getElementById('s-price').textContent = fmt(selectedPlan.price);
+    document.getElementById('s-phone').textContent = phone || '—';
+    strip.style.display = 'block';
   }
 }
 
-// ══════════════════
-// WHATSAPP
-// ══════════════════
-function openWhatsApp() {
-  if (!currentPlan) { showToast('⚠️ Please select a plan first'); return; }
-  var phone = document.getElementById('phoneInput').value.trim();
-  if (!phone || phone.length < 10) { showToast('⚠️ Enter a valid phone number'); return; }
-  var msg = 'Hello BankDataSub! 👋\n\n'
-    + '━━━━ ORDER DETAILS ━━━━\n'
-    + '📶 Network : ' + currentNet + '\n'
-    + '📦 Plan    : ' + currentPlan.size + ' (' + currentPlan.val + ')\n'
-    + '🏷️ Type    : ' + currentPlan.desc + '\n'
-    + '💰 Price   : ' + naira(currentPlan.price) + '\n'
-    + '📱 Number  : ' + phone + '\n'
-    + '━━━━━━━━━━━━━━━━━━━━━━\n\n'
-    + 'Please send your account details.\n'
-    + 'Payment screenshot attached below ⬇️';
-  window.open('https://wa.me/2348030847205?text=' + encodeURIComponent(msg), '_blank');
-  showToast('Opening WhatsApp… 🚀');
+document.getElementById('phoneInput').addEventListener('input', updateSummary);
+
+// Duration tabs
+document.getElementById('durTabs').addEventListener('click', e => {
+  const btn = e.target.closest('.dur-tab');
+  if(!btn) return;
+  document.querySelectorAll('.dur-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedDur = btn.dataset.dur;
+  selectedPlan = null;
+  renderPlans(selectedNet, selectedDur);
+  updateSummary();
+});
+
+// Network tabs
+document.getElementById('netTabs').addEventListener('click', e => {
+  const btn = e.target.closest('.net-tab');
+  if(!btn) return;
+  document.querySelectorAll('.net-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedNet = btn.dataset.net;
+  selectedPlan = null;
+  renderPlans(selectedNet, selectedDur);
+  updateSummary();
+});
+
+function openWhatsApp(){
+  const phone = document.getElementById('phoneInput').value.trim();
+  if(!selectedPlan){ alert('⚠️ Please select a data plan first.'); return; }
+  if(!phone || phone.length < 10){ alert('⚠️ Please enter a valid phone number.'); return; }
+  const msg = encodeURIComponent(
+    `Hello BankDataSub! 👋\n\nI want to buy data:\n` +
+    `📶 Network: ${selectedNet}\n` +
+    `📦 Plan: ${selectedPlan.size} (${selectedPlan.validity})\n` +
+    `💰 Price: ${fmt(selectedPlan.price)}\n` +
+    `📱 Deliver to: ${phone}\n\n` +
+    `Please confirm payment details. Screenshot attached below ⬇️`
+  );
+  const waNumber = '2348030847205';
+  window.open(`https://wa.me/${waNumber}?text=${msg}`, '_blank');
+  showToast();
 }
 
-// ══════════════════
-// TOAST
-// ══════════════════
-function showToast(msg) {
-  var el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
-  setTimeout(function() { el.classList.remove('show'); }, 3000);
+function showToast(){
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// ══════════════════
-// INIT
-// ══════════════════
-renderPlans();
+// Initial render
+renderPlans(selectedNet, selectedDur);
 </script>
 </body>
 </html>
